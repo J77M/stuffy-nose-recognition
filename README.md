@@ -46,6 +46,7 @@ None<br />
 
 batch_size = 5, epochs=10 <br />
 100% validation accuracy on my data (i wont share them, because of my privacy)<br />
+data - total: 4.5 min of recording (2.25 min talking with stuffy nose - nose stuffed with fingers, 2.25 min talking with clear nose)<br />
 <br />
 If you are training model, please test and evaluate your combinations of architecture.<br />
 Training code is adapted for tensorboard evaluation.
