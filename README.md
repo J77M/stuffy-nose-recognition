@@ -8,12 +8,12 @@ Also record new data and train model if demand is smaller frame (more real time 
 <br />
 |<br />
 |__ training <br />
-|	   |_ data		# data recorded by data_record<br />
-|	   |_ model_evaluate	# folder for tensorboard evaluations<br />
-|	   |_ trained_models	# trained models<br />
-|	   |_ data_record.py	# record and saves <br />
-|	   |_ model.py		# neural network model <br />
-|	   |_ utils.py		# useful functions<br />
+|          |_ data		# data recorded by data_record<br />
+|          |_ model_evaluate	# folder for tensorboard evaluations<br />
+|          |_ trained_models	# trained models<br />
+|          |_ data_record.py	# record and saves <br />
+|          |_ model.py		# neural network model <br />
+|          |_ utils.py		# useful functions<br />
 |
 |__ real_time_analysis.py	# real time use of trained neural network <br />
 	   
