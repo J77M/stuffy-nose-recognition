@@ -14,7 +14,7 @@ Also record new data and train model if demand is smaller frame (more real time 
 |          |_ data_record.py	# record and saves <br />
 |          |_ model.py		# neural network model <br />
 |          |_ utils.py		# useful functions<br />
-|
+|<br />
 |__ real_time_analysis.py	# real time use of trained neural network <br />
 	   
 <br />
