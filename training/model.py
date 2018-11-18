@@ -6,7 +6,8 @@ import utils
 path = r'data/'
 
 x, y = utils.reload_data(path)
-x = np.array(x).reshape(-1, 1000, 1)
+inp_shape = (x[0].shape[0],1)
+x = np.array(x).reshape(-1, 1000, 1)# change 1000 to your sample lenght if you changed frame (= CHUNK ) or RESOLUTION
 
 
 # prepared for testing and evaluating. try other combinations of architecture
@@ -28,12 +29,12 @@ for dense_layer in dense_layers:
                 NAME = '{}-conv_layers-{}-dense_layers-{}-conv_size-{}-dense_size-{}-kernel-{}'.format(conv_layer,dense_layer,conv_size, dense_size,kernel, int(time.time()))
                 model = tf.keras.Sequential()
 
-                model.add(tf.keras.layers.Conv1D(conv_size, kernel, activation='relu', input_shape = (1000, 1)))
-                model.add(tf.keras.layers.MaxPooling1D(4))
+                model.add(tf.keras.layers.Conv1D(conv_size, kernel, activation='relu', input_shape = inp_shape))
+                model.add(tf.keras.layers.MaxPooling1D(pool_size))
 
                 for i in range(conv_layer-1):
                     model.add(tf.keras.layers.Conv1D(conv_size, kernel, activation='relu'))
-                    model.add(tf.keras.layers.MaxPooling1D(4))
+                    model.add(tf.keras.layers.MaxPooling1D(pool_size))
 
                 model.add(tf.keras.layers.Flatten())
 

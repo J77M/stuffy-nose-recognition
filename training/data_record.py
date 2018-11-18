@@ -1,8 +1,7 @@
-import pyaudio
 import numpy as np
-import wave
 from time import time
-import utils
+from audio import Audio
+
 
 #LABEL = 1 if recording normal voice, LABEL = 0 if recording mumble voice (stuffy nose)
 # set before recording !!!
@@ -11,43 +10,25 @@ LABEL = 1
 
 RECORD_SECONDS = 45
 
-band = (250,6000) # for bandpass
-top_val = 6000 # max frequency
+class Record(object):
+    '''class to be called in audio.start_stream'''
+    def __init__(self, rec_sec):
+        self.RECORD_SEC = rec_sec
+        self.audio_data = Audio()
+        self.data = []
 
-FORMAT = pyaudio.paInt16
-CHANNELS = 1
-RATE = 44100
-CHUNK = 2*RATE # every 2 seconds. for all recordings have to be same
-RESOLUTION = 12 #  factor for reducing resolution
+    def stream(self):
+        '''start audio streaming and return collected data'''
+        self.audio_data.start_stream(self, self.RECORD_SEC)
+        return self.data
 
-data = []
-
-
-def record(stream):
-    raw_data = stream.read(CHUNK)
-    waveData = wave.struct.unpack("%dh"%(CHUNK), raw_data)
-    indata = np.array(waveData)
-    indata = utils.bandpass(band[0],band[1],indata,RATE)
-    freq, y = utils.fft(indata, RATE)
-    maxIndex = np.where(freq > top_val)[0][0]
-    y = y[:maxIndex]
-    y = y / np.amax(y) # features scaling - need improvement
-    yp = utils.reduce_resolution(y, mn= RESOLUTION)
-    data.append(yp)
+    def __call__(self, sample):
+        '''collect data'''
+        self.data.append(sample)
 
 
 if __name__=="__main__":
 
-    p=pyaudio.PyAudio()
-    stream=p.open(format=pyaudio.paInt16,channels=1,rate=RATE,input=True,
-                  frames_per_buffer=CHUNK, output = True)
-
-    print('recording started')
-    for i in range(0, int(utils.RATE / utils.CHUNK * RECORD_SECONDS)):
-        record(stream)
-
-    stream.stop_stream()
-    stream.close()
-    p.terminate()
-    tim = time()
-    np.save('data/data_x-{}'.format(tim),[np.array(data), LABEL])
+    rec = Record(RECORD_SECONDS)
+    data = rec.stream()
+    np.save('data/data_x-{}'.format(time()),[np.array(data), LABEL]) #if no data folder, please create one

@@ -1,6 +1,6 @@
 # stuffy-nose-recognition
 Trained neural network for recognizing speaking with stuffy nose. <br />
-Extension : real time recognition on 2 seconds frames.
+Extension : real time recognition on 2 seconds frames.<br />
 Model was trained only on data from one person (me), so there is possibility to record data and train model. <br />
 Also record new data and train model if demand is smaller frame (more real time recognition).<br />
 (There was extension in training process, instead of training on recording data, to train on analysed wav files, but results on real time were about 60% accuracy, so feel free to try and improve)<br />
@@ -11,9 +11,10 @@ Also record new data and train model if demand is smaller frame (more real time 
 |          |_ data		# data recorded by data_record<br />
 |          |_ model_evaluate	# folder for tensorboard evaluations<br />
 |          |_ trained_models	# trained models<br />
-|          |_ data_record.py	# record and saves <br />
+|          |_ data_record.py	# record and saves<br />
 |          |_ model.py		# neural network model <br />
 |          |_ utils.py		# useful functions<br />
+|          |_ audio.py		# class for audio processing<br />
 |<br />
 |__ real_time_analysis.py	# real time use of trained neural network <br />
 	   
@@ -45,8 +46,10 @@ None<br />
 <br />
 
 batch_size = 5, epochs=10 <br />
-100% validation accuracy on my data (i wont share them, because of my privacy)<br />
+100% validation accuracy on my data (i wont share them, because of my privacy :) )<br />
 data - total: 4.5 min of recording (2.25 min talking with stuffy nose - nose stuffed with fingers, 2.25 min talking with clear nose)<br />
 <br />
 If you are training model, please test and evaluate your combinations of architecture.<br />
-Training code is adapted for tensorboard evaluation.
+Training code is adapted for tensorboard evaluation. <br />
+<br />
+J.M.

@@ -1,7 +1,16 @@
 import numpy as np
 from scipy import signal
 import os
+import pyaudio
 
+band = (250,6000)# for frequency bands for bandpass filtering
+top_val = 6000 #max frequency
+
+FORMAT = pyaudio.paInt16
+CHANNELS = 1
+RATE = 44100
+CHUNK = 2*RATE # every 2 seconds. for all recordings for one model have to be same
+RESOLUTION = 12 #  factor for reducing resolution. for all recordings for one model have to be same
 
 
 def bandpass(start, stop, data, fs):
@@ -42,4 +51,3 @@ def reload_data(path):
     data = data[indices]
     y = ys[indices]
     return data, y
-
