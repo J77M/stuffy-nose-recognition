@@ -30,14 +30,14 @@ class Audio(object):
         return yp
 
 
-    def start_stream(self, _class, time):
-        '''_class - list of objects - calling them on new data'''
-        if type(_class) != []:
-            _class = [_class]
+    def start_stream(self, callback, time):
+        '''_class - list of objects or functions - calling them on new data'''
+        if type(callback) != []:
+            callback = [callback]
 
         for i in range(0, int(utils.RATE / utils.CHUNK * time)):
             raw_data = self.stream.read(utils.CHUNK)
-            for cls in _class:
+            for cls in callback:
                 data = self.process_data(raw_data)
                 cls(data)
 
