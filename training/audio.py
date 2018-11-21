@@ -31,7 +31,7 @@ class Audio(object):
 
 
     def start_stream(self, callback, time):
-        '''_class - list of objects or functions - calling them on new data'''
+        '''callback - list of objects or functions - calling them on new data'''
         if type(callback) != []:
             callback = [callback]
 
